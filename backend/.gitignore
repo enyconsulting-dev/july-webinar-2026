@@ -1,0 +1,7 @@
+# /home/obed/Documents/free-webinar-sales/backend/.gitignore
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+*.log
