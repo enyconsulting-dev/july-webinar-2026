@@ -1,0 +1,8 @@
+# /home/obed/Documents/free-webinar-sales/frontend/.gitignore
+node_modules
+dist
+.env
+.env.local
+.env.*.local
+*.log
+.DS_Store
