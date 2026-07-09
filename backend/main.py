@@ -16,7 +16,11 @@ logging.basicConfig(level=logging.INFO)
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Create tables on startup (use Alembic migrations in production).
-    await init_db()
+    try:
+        await init_db()
+        logging.info("Database initialized successfully")
+    except Exception as exc:
+        logging.warning("Database initialization failed at startup: %s", exc)
     yield
 
 
