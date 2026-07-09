@@ -5,7 +5,11 @@
 // checkout URLs are available.
 
 export const config = {
-  apiBase: import.meta.env.VITE_API_BASE ?? "", // "" => same-origin (dev proxy)
+  apiBase:
+    import.meta.env.VITE_API_BASE ??
+    (import.meta.env.PROD
+      ? "https://july-webinar-2026.onrender.com"
+      : ""), // "" => same-origin (dev proxy)
 
   zoomRegistrationUrl:
     import.meta.env.VITE_ZOOM_URL ??
