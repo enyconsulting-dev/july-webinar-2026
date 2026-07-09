@@ -89,7 +89,7 @@ export default function OptInPage() {
           {/* Right: founder portrait placeholder */}
           <div className="relative">
             <PlaceholderImage
-              src="/images/eno-hero.jpg"
+              src="AI_Eno_Pic.png"
               alt="Eno Eka, Founder of ENY Consulting Inc."
               label="Eno Eka — hero portrait"
               aspect="4/5"
