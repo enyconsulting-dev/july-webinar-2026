@@ -2,7 +2,7 @@
 
 import logging
 
-from fastapi import APIRouter, BackgroundTasks, Depends
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 
 import ghl
@@ -54,9 +54,16 @@ async def create_lead(
         utm_medium=payload.utm_medium,
         utm_campaign=payload.utm_campaign,
     )
-    db.add(lead)
-    await db.commit()
-    await db.refresh(lead)
+    try:
+        db.add(lead)
+        await db.commit()
+        await db.refresh(lead)
+    except Exception as exc:
+        logger.exception("Lead persistence failed")
+        raise HTTPException(
+            status_code=503,
+            detail="Registration service is temporarily unavailable. Please try again shortly.",
+        ) from exc
 
     # Forward to GHL without blocking the response.
     background_tasks.add_task(_sync_lead_to_ghl, lead.id, payload)

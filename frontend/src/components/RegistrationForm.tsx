@@ -42,10 +42,14 @@ export default function RegistrationForm() {
       navigate("/thank-you");
     } catch (err) {
       setStatus("error");
-      setError(
+      const message =
         err instanceof Error
-          ? "We couldn't save your seat just now. Please try again."
-          : "Something went wrong."
+          ? err.message
+          : "Something went wrong.";
+      setError(
+        message.includes("Registration service is temporarily unavailable")
+          ? "We’re having trouble saving seats right now. Please try again in a few minutes."
+          : "We couldn't save your seat just now. Please try again."
       );
     }
   }
