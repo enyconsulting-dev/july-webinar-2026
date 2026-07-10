@@ -6,7 +6,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from config import settings
+from config import settings, validate_required_env
 from database import init_db
 from routers import leads, orders
 
@@ -15,6 +15,22 @@ logging.basicConfig(level=logging.INFO)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    # Fail loudly on boot if required env vars are missing/placeholder, rather
+    # than failing silently on the first request. Hard-fail in production;
+    # warn in development so local work without GHL creds still boots.
+    problems = validate_required_env(settings)
+    if problems:
+        message = "Environment validation failed:\n" + "\n".join(
+            f"  - {p}" for p in problems
+        )
+        if settings.environment == "production":
+            raise RuntimeError(message)
+        logging.warning(
+            "%s\n(continuing because ENVIRONMENT is '%s', not 'production')",
+            message,
+            settings.environment,
+        )
+
     # Create tables on startup (use Alembic migrations in production).
     try:
         await init_db()
@@ -45,5 +61,9 @@ async def health() -> dict:
 
 @app.get("/api/config")
 async def public_config() -> dict:
-    """Non-secret config the frontend may read (e.g. the Zoom link)."""
-    return {"zoom_registration_url": settings.zoom_registration_url}
+    """Non-secret config the frontend reads (Zoom link, GHL calendar URL)."""
+    return {
+        "zoom_registration_url": settings.zoom_registration_url,
+        # "" when GHL_CALENDAR_ID is not configured — frontend hides the button.
+        "ghl_calendar_url": settings.ghl_calendar_url,
+    }
