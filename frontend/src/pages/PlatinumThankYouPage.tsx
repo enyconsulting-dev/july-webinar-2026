@@ -37,8 +37,15 @@ const STEPS = [
 const SHARE = [
   { label: "LinkedIn", href: "https://www.linkedin.com/in/enoeka-businessanalysis-coach-businessanalyst-businessanalysiscoach-cbap-prosci-ccba-ecba-career" },
   { label: "Facebook", href: "https://www.facebook.com/businessanalysisschool/" },
-  { label: "WhatsApp", href: "https://wa.me/?text=" },
-  { label: "Email", href: "mailto:?subject=Free%20Masterclass&body=" },
+ {
+  label: "WhatsApp",
+  href: "https://wa.me/2349139584561?text=Making%20Enquiry%20for%20this%20webinar"
+},
+{
+  label: "Email",
+  href: "mailto:support@businessanalysisschool.com?subject=Free%20Masterclass&body=Making%20Enquiry%20for%20this%20webinar"
+},
+
 ];
 
 export default function PlatinumThankYouPage() {
