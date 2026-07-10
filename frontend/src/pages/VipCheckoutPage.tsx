@@ -7,10 +7,15 @@ import OrderSummary from "../components/OrderSummary";
 import Reveal from "../components/Reveal";
 import { createOrder } from "../api";
 import { config } from "../config";
+import { useCurrency } from "../context/CurrencyContext";
 
 export default function VipCheckoutPage() {
   const navigate = useNavigate();
   const email = sessionStorage.getItem("lead_email") ?? "";
+  const { currency } = useCurrency();
+  const isNgn = currency === "NGN";
+  const priceLabel = isNgn ? "₦10,000" : "$27";
+  const checkoutUrl = config.vipCheckoutUrl[currency];
 
   async function handleProceed() {
     await createOrder(email, "vip");
@@ -41,21 +46,21 @@ export default function VipCheckoutPage() {
                   "How I Went From Accountant to Building a Multi-Million Dollar Global Consulting Company",
               },
               { label: "VIP Pass Includes", value: "90-Day Launch Workbook" },
-              { label: "Total Value", value: "$497" },
+              { label: "Total Value", value: isNgn ? "₦25,000+" : "$67+" },
               {
                 label: "Billing",
                 value: "One-time payment. No subscription. No hidden fees.",
               },
             ]}
             priceLabel="Your Price Today"
-            price="$47"
+            price={priceLabel}
           />
         </Reveal>
 
         <Reveal delay={0.1}>
           <CheckoutEmbedZone
-            ctaText="Complete My VIP Pass Order — $47"
-            checkoutUrl={config.vipCheckoutUrl}
+            ctaText={`Complete My VIP Pass Order — ${priceLabel}`}
+            checkoutUrl={checkoutUrl}
             microcopy="You will receive an order confirmation and all VIP Pass materials to the email you registered with. Delivery is instant."
             onProceed={handleProceed}
           />

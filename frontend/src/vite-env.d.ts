@@ -4,8 +4,10 @@
 interface ImportMetaEnv {
   readonly VITE_API_BASE?: string;
   readonly VITE_ZOOM_URL?: string;
-  readonly VITE_VIP_CHECKOUT_URL?: string;
-  readonly VITE_PLATINUM_CHECKOUT_URL?: string;
+  readonly VITE_VIP_CHECKOUT_URL_NGN?: string;
+  readonly VITE_VIP_CHECKOUT_URL_USD?: string;
+  readonly VITE_PLATINUM_CHECKOUT_URL_NGN?: string;
+  readonly VITE_PLATINUM_CHECKOUT_URL_USD?: string;
   readonly VITE_EVENT_STARTS_AT?: string;
   readonly VITE_GHL_CALENDAR_ID?: string;
 }

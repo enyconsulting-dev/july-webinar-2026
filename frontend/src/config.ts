@@ -15,10 +15,14 @@ export const config = {
     import.meta.env.VITE_ZOOM_URL ??
     "https://us06web.zoom.us/meeting/register/kZIx9YQbSBi-GbYHGHCBrg",
 
-  // Placeholder checkout links. Replace with GHL/Stripe checkout URLs.
-  vipCheckoutUrl: import.meta.env.VITE_VIP_CHECKOUT_URL ?? "#vip-checkout-placeholder",
-  platinumCheckoutUrl:
-    import.meta.env.VITE_PLATINUM_CHECKOUT_URL ?? "#platinum-checkout-placeholder",
+  vipCheckoutUrl: {
+    NGN: import.meta.env.VITE_VIP_CHECKOUT_URL_NGN ?? "#vip-checkout-placeholder-ngn",
+    USD: import.meta.env.VITE_VIP_CHECKOUT_URL_USD ?? "#vip-checkout-placeholder-usd",
+  },
+  platinumCheckoutUrl: {
+    NGN: import.meta.env.VITE_PLATINUM_CHECKOUT_URL_NGN ?? "#platinum-checkout-placeholder-ngn",
+    USD: import.meta.env.VITE_PLATINUM_CHECKOUT_URL_USD ?? "#platinum-checkout-placeholder-usd",
+  },
 
   supportEmail: "support@businessanalysisschool.com",
 

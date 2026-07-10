@@ -9,6 +9,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from config import settings, validate_required_env
 from database import init_db
 from routers import leads, orders
+from routers import webhooks
 
 logging.basicConfig(level=logging.INFO)
 
@@ -52,6 +53,7 @@ app.add_middleware(
 
 app.include_router(leads.router)
 app.include_router(orders.router)
+app.include_router(webhooks.router)
 
 
 @app.get("/api/health")

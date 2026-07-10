@@ -8,12 +8,15 @@ import ConfirmationBox from "../components/ConfirmationBox";
 import PlaceholderImage from "../components/PlaceholderImage";
 import Reveal from "../components/Reveal";
 import { config } from "../config";
+import { useCurrency } from "../context/CurrencyContext";
 
 export default function ThankYouPage() {
   const navigate = useNavigate();
   const firstName = sessionStorage.getItem("lead_first_name") ?? "";
   const zoomUrl = sessionStorage.getItem("zoom_url") ?? config.zoomRegistrationUrl;
+  const { currency, setCurrency } = useCurrency();
   const [calendarUrl, setCalendarUrl] = useState("");
+  const vipPriceLabel = currency === "NGN" ? "₦10,000" : "$27";
 
   useEffect(() => {
     let cancelled = false;
@@ -121,9 +124,28 @@ export default function ThankYouPage() {
             <div className="flex flex-col gap-8 lg:flex-row lg:items-center">
               <div className="flex-1">
                 <span className="eyebrow">One-Time Offer — This Page Only</span>
+                <div className="mb-4 flex flex-wrap items-center gap-3">
+                  <span className="text-sm font-semibold uppercase tracking-[0.3em] text-gold-light">
+                    Currency
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setCurrency("NGN")}
+                    className={`rounded-full px-3 py-1.5 text-sm ${currency === "NGN" ? "bg-gold text-ink" : "bg-white/10 text-cream/80"}`}
+                  >
+                    NGN
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setCurrency("USD")}
+                    className={`rounded-full px-3 py-1.5 text-sm ${currency === "USD" ? "bg-gold text-ink" : "bg-white/10 text-cream/80"}`}
+                  >
+                    USD
+                  </button>
+                </div>
                 <h2 className="mt-4 text-2xl font-semibold sm:text-3xl">
                   Upgrade to the VIP Pass for{" "}
-                  <span className="text-gold-gradient">$47</span> and Show Up Ready to
+                  <span className="text-gold-gradient">{vipPriceLabel}</span> and Show Up Ready to
                   Launch
                 </h2>
                 <p className="mt-4 text-cream/75">
@@ -158,7 +180,7 @@ export default function ThankYouPage() {
                   onClick={() => navigate("/vip-checkout")}
                   className="btn-cta mt-6 w-full sm:w-auto"
                 >
-                  Yes, Add the VIP Pass for $47
+                  Yes, Add the VIP Pass for {vipPriceLabel}
                 </motion.button>
                 <p className="mt-2 text-xs text-cream/50">
                   Secure checkout. Takes less than 60 seconds.

@@ -7,10 +7,15 @@ import OrderSummary from "../components/OrderSummary";
 import Reveal from "../components/Reveal";
 import { createOrder } from "../api";
 import { config } from "../config";
+import { useCurrency } from "../context/CurrencyContext";
 
 export default function PlatinumCheckoutPage() {
   const navigate = useNavigate();
   const email = sessionStorage.getItem("lead_email") ?? "";
+  const { currency } = useCurrency();
+  const isNgn = currency === "NGN";
+  const priceLabel = isNgn ? "₦25,000" : "$67";
+  const checkoutUrl = config.platinumCheckoutUrl[currency];
 
   async function handleProceed() {
     await createOrder(email, "platinum");
@@ -49,26 +54,26 @@ export default function PlatinumCheckoutPage() {
                 value:
                   "Everything in VIP + Quick-Start Kit + Done-For-You Templates + Live Working Session + Priority Seat",
               },
-              { label: "Total Value", value: "$1,088+" },
+              { label: "Total Value", value: isNgn ? "₦40,000+" : "$94+" },
               {
                 label: "Billing",
                 value: "One-time payment. No subscription. No hidden fees.",
               },
             ]}
             priceLabel="Your Price Today"
-            price="$97"
+            price={priceLabel}
           />
         </Reveal>
 
         <Reveal delay={0.1}>
           <div className="space-y-4">
             <p className="rounded-xl border border-gold/20 bg-gold/5 p-4 text-sm text-cream/75">
-              Your VIP Pass purchase has already been applied to your account. This $97
+              Your VIP Pass purchase has already been applied to your account. This {priceLabel}
               charge covers the Platinum Pass upgrade only.
             </p>
             <CheckoutEmbedZone
-              ctaText="Complete My Platinum Pass Order — $97"
-              checkoutUrl={config.platinumCheckoutUrl}
+              ctaText={`Complete My Platinum Pass Order — ${priceLabel}`}
+              checkoutUrl={checkoutUrl}
               microcopy="All Platinum Pass materials will be delivered instantly to the email you registered with."
               onProceed={handleProceed}
             />

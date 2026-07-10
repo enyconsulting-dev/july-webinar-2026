@@ -7,6 +7,7 @@ import ConfirmationBox from "../components/ConfirmationBox";
 import PlaceholderImage from "../components/PlaceholderImage";
 import Reveal from "../components/Reveal";
 import { config } from "../config";
+import { useCurrency } from "../context/CurrencyContext";
 
 const PLATINUM_INCLUDES = [
   {
@@ -32,15 +33,17 @@ const PLATINUM_INCLUDES = [
 ];
 
 const VALUE_STACK = [
-  { item: "Everything in VIP Pass", value: "$497" },
-  { item: "Pre-Masterclass Quick-Start Kit", value: "$97" },
-  { item: "Done-For-You Consulting Templates", value: "$197" },
-  { item: "Platinum-Only Live Working Session", value: "$297" },
-  { item: "Priority Program Seat Reservation", value: "Priceless" },
+  { item: "Everything in VIP Pass", value: "₦10,000 / $27" },
+  { item: "Pre-Masterclass Quick-Start Kit", value: "₦25,000 / $67" },
+  { item: "Done-For-You Consulting Templates", value: "Included" },
+  { item: "Platinum-Only Live Working Session", value: "Included" },
+  { item: "Priority Program Seat Reservation", value: "Included" },
 ];
 
 export default function VipThankYouPage() {
   const navigate = useNavigate();
+  const { currency, setCurrency } = useCurrency();
+  const platinumPriceLabel = currency === "NGN" ? "₦25,000" : "$67";
 
   return (
     <main className="container-tight py-14">
@@ -95,9 +98,28 @@ export default function VipThankYouPage() {
         <div className="mt-12 rounded-3xl border border-gold/30 bg-gradient-to-b from-gold/10 to-transparent p-1">
           <div className="rounded-[1.4rem] bg-ink-800/80 p-6 sm:p-9">
             <span className="eyebrow">One-Time Offer — This Page Only</span>
+            <div className="mb-4 flex flex-wrap items-center gap-3">
+              <span className="text-sm font-semibold uppercase tracking-[0.3em] text-gold-light">
+                Currency
+              </span>
+              <button
+                type="button"
+                onClick={() => setCurrency("NGN")}
+                className={`rounded-full px-3 py-1.5 text-sm ${currency === "NGN" ? "bg-gold text-ink" : "bg-white/10 text-cream/80"}`}
+              >
+                NGN
+              </button>
+              <button
+                type="button"
+                onClick={() => setCurrency("USD")}
+                className={`rounded-full px-3 py-1.5 text-sm ${currency === "USD" ? "bg-gold text-ink" : "bg-white/10 text-cream/80"}`}
+              >
+                USD
+              </button>
+            </div>
             <h2 className="mt-4 text-2xl font-semibold sm:text-3xl">
               Upgrade to the Platinum Pass for{" "}
-              <span className="text-gold-gradient">$97</span> and Walk In With Your
+              <span className="text-gold-gradient">{platinumPriceLabel}</span> and Walk In With Your
               Consulting Business Already Half-Built
             </h2>
 
@@ -140,7 +162,7 @@ export default function VipThankYouPage() {
                   <div className="mt-3 flex justify-between border-t border-white/10 pt-3">
                     <span className="text-sm text-cream/60">Total Value</span>
                     <span className="font-display text-xl font-bold text-cream/80 line-through decoration-red-400/60">
-                      $1,088+
+                      {currency === "NGN" ? "₦40,000+" : "$94+"}
                     </span>
                   </div>
                   <div className="mt-3 flex items-center justify-between rounded-xl bg-gold/10 px-4 py-3">
@@ -148,7 +170,7 @@ export default function VipThankYouPage() {
                       Your Price Today
                     </span>
                     <span className="font-display text-3xl font-bold text-gold-light">
-                      $97
+                      {platinumPriceLabel}
                     </span>
                   </div>
                 </div>
@@ -166,7 +188,7 @@ export default function VipThankYouPage() {
 
             {/* Scarcity */}
             <div className="mt-8 rounded-2xl border border-red-400/20 bg-red-400/5 p-5">
-              <p className="font-semibold text-cream">Why $97 and why only here?</p>
+              <p className="font-semibold text-cream">Why {platinumPriceLabel} and why only here?</p>
               <p className="mt-2 text-sm text-cream/70">
                 The Platinum Pass includes a live HOT SEAT session with a hard cap on
                 attendees so Eno can give real, personalized attention. When those spots
@@ -181,7 +203,7 @@ export default function VipThankYouPage() {
               onClick={() => navigate("/platinum-checkout")}
               className="btn-cta mt-8 w-full sm:w-auto"
             >
-              Yes, Upgrade to the Platinum Pass — $97
+              Yes, Upgrade to the Platinum Pass — {platinumPriceLabel}
             </motion.button>
             <p className="mt-2 text-xs text-cream/50">
               Secure checkout. Completion takes less than 60 seconds.

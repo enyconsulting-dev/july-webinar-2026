@@ -6,6 +6,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 import "./index.css";
 import RootLayout from "./RootLayout";
+import { CurrencyProvider } from "./context/CurrencyContext";
 import OptInPage from "./pages/OptInPage";
 import ThankYouPage from "./pages/ThankYouPage";
 import VipCheckoutPage from "./pages/VipCheckoutPage";
@@ -29,6 +30,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <CurrencyProvider>
+      <RouterProvider router={router} />
+    </CurrencyProvider>
   </React.StrictMode>
 );

@@ -10,11 +10,12 @@ from schemas import OrderCreate, OrderResponse
 
 router = APIRouter(prefix="/api/orders", tags=["orders"])
 
-# Placeholder pricing. Payment is handled by GHL/Stripe checkout links for now;
-# this endpoint records the intent so upsell take-rates are trackable.
+# Payment is handled by external hosted checkout links (Paystack for NGN,
+# foreign hosted checkout for USD). This endpoint records the intent so
+# upsell take-rates are still trackable.
 PRODUCT_PRICING = {
-    "vip": 4700,       # $47.00
-    "platinum": 9700,  # $97.00
+    "vip": 1000000,       # ₦10,000.00 (stored as minor units for bookkeeping)
+    "platinum": 2500000,  # ₦25,000.00 (stored as minor units for bookkeeping)
 }
 
 
