@@ -35,8 +35,8 @@ const STEPS = [
 ];
 
 const SHARE = [
-  { label: "LinkedIn", href: "https://www.linkedin.com/sharing/share-offsite/?url=" },
-  { label: "Facebook", href: "https://www.facebook.com/sharer/sharer.php?u=" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/enoeka-businessanalysis-coach-businessanalyst-businessanalysiscoach-cbap-prosci-ccba-ecba-career" },
+  { label: "Facebook", href: "https://www.facebook.com/businessanalysisschool/" },
   { label: "WhatsApp", href: "https://wa.me/?text=" },
   { label: "Email", href: "mailto:?subject=Free%20Masterclass&body=" },
 ];
