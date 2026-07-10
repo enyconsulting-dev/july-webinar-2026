@@ -7,6 +7,7 @@ from fastapi import BackgroundTasks, HTTPException
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
+from database import build_async_engine_kwargs
 from routers.leads import create_lead
 from schemas import LeadCreate
 
@@ -23,6 +24,14 @@ class FailingDbSession:
 
 
 class LeadCreationTests(unittest.TestCase):
+    def test_translates_sslmode_require_for_asyncpg(self):
+        kwargs = build_async_engine_kwargs(
+            "postgresql+asyncpg://user:pass@db.example.com:5432/postgres?sslmode=require"
+        )
+
+        self.assertEqual(kwargs["connect_args"], {"ssl": True})
+        self.assertEqual(kwargs["url"].query, {})
+
     def test_returns_service_unavailable_when_db_commit_fails(self):
         async def run_test():
             with self.assertRaises(HTTPException) as ctx:
