@@ -7,6 +7,7 @@ interface ImportMetaEnv {
   readonly VITE_VIP_CHECKOUT_URL?: string;
   readonly VITE_PLATINUM_CHECKOUT_URL?: string;
   readonly VITE_EVENT_STARTS_AT?: string;
+  readonly VITE_GHL_CALENDAR_ID?: string;
 }
 
 interface ImportMeta {

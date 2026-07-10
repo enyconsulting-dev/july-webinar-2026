@@ -1,6 +1,7 @@
 // /home/obed/Documents/free-webinar-sales/frontend/src/pages/ThankYouPage.tsx
 
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import ConfirmationBox from "../components/ConfirmationBox";
@@ -12,6 +13,30 @@ export default function ThankYouPage() {
   const navigate = useNavigate();
   const firstName = sessionStorage.getItem("lead_first_name") ?? "";
   const zoomUrl = sessionStorage.getItem("zoom_url") ?? config.zoomRegistrationUrl;
+  const [calendarUrl, setCalendarUrl] = useState("");
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadConfig() {
+      try {
+        const res = await fetch(`${config.apiBase}/api/config`);
+        if (!res.ok) return;
+        const data = await res.json();
+        if (!cancelled) {
+          setCalendarUrl(data.ghl_calendar_url ?? "");
+        }
+      } catch {
+        // Keep the button hidden if the config endpoint is unavailable.
+      }
+    }
+
+    void loadConfig();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   return (
     <main className="container-narrow py-14">
@@ -55,10 +80,16 @@ export default function ThankYouPage() {
               <a href={zoomUrl} target="_blank" rel="noreferrer" className="btn-cta text-sm">
                 Confirm My Zoom Registration
               </a>
-              {/* [GHL EMBED ZONE — ADD TO CALENDAR: Google / Apple / Outlook] */}
-              <button className="btn-ghost" type="button">
-                + Add to Calendar
-              </button>
+              {calendarUrl ? (
+                <a
+                  href={calendarUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="btn-ghost text-sm"
+                >
+                  + Add to Calendar
+                </a>
+              ) : null}
             </div>
           </ConfirmationBox>
         </div>
