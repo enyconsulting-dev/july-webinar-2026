@@ -31,10 +31,25 @@ export default function RegistrationForm() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+
+    const trimmed = {
+      first_name: form.first_name.trim(),
+      last_name: form.last_name.trim(),
+      email: form.email.trim(),
+      phone: form.phone.trim(),
+    };
+
+    if (!trimmed.first_name || !trimmed.last_name || !trimmed.email) {
+      setStatus("error");
+      setError("Please complete your first name, last name, and email address.");
+      return;
+    }
+
+    setForm(trimmed as FormState);
     setStatus("loading");
     setError("");
     try {
-      const res = await createLead({ ...form, source: "opt-in-page" });
+      const res = await createLead({ ...trimmed, source: "opt-in-page" });
       // Persist for the VIP/Platinum upsell steps.
       sessionStorage.setItem("lead_email", res.email);
       sessionStorage.setItem("lead_first_name", res.first_name);
@@ -66,6 +81,7 @@ export default function RegistrationForm() {
           value={form.first_name}
           onChange={update("first_name")}
           required
+          aria-required="true"
           autoComplete="given-name"
         />
         <input
@@ -74,6 +90,7 @@ export default function RegistrationForm() {
           value={form.last_name}
           onChange={update("last_name")}
           required
+          aria-required="true"
           autoComplete="family-name"
         />
       </div>
@@ -84,6 +101,7 @@ export default function RegistrationForm() {
         value={form.email}
         onChange={update("email")}
         required
+        aria-required="true"
         autoComplete="email"
       />
       <input
@@ -92,6 +110,8 @@ export default function RegistrationForm() {
         placeholder="Phone number"
         value={form.phone}
         onChange={update("phone")}
+        required
+        aria-required="true"
         autoComplete="tel"
       />
 
