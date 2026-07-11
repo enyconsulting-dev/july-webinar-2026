@@ -197,7 +197,7 @@ export default function ThankYouPage() {
 
               <div className="w-full lg:w-72">
                 <PlaceholderImage
-                  src="/images/vip-workbook.jpg"
+                  src="CEO.jpg"
                   alt="90-Day Consulting Launch Workbook"
                   label="VIP Workbook mockup"
                   aspect="3/4"

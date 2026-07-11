@@ -144,7 +144,7 @@ export default function OptInPage() {
         <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
           <Reveal>
             <PlaceholderImage
-              src="/images/eno-story.jpg"
+              src="eno_sp.png"
               alt="Eno Eka speaking on stage"
               label="Story / stage image"
               aspect="1/1"
