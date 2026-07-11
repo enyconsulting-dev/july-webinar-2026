@@ -115,7 +115,7 @@ export default function PlatinumThankYouPage() {
         <Reveal>
           <div className="grid gap-8 rounded-3xl border border-gold/20 bg-ink-800/60 p-6 sm:p-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
             <PlaceholderImage
-              src="/images/eno-signature.jpg"
+              src="CEO.jpg"
               alt="Eno Eka"
               label="Eno — closing portrait"
               aspect="1/1"
