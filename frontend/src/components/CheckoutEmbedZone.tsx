@@ -25,22 +25,21 @@ export default function CheckoutEmbedZone({
   return (
     <div className="card">
       <h3 className="mb-1 text-sm font-semibold uppercase tracking-widest text-gold-light">
-        Enter Your Payment Details
+        Proceed to checkout
       </h3>
       <p className="mb-5 text-xs text-cream/50">
         {/* Remove this notice once the real embed / checkout link is wired. */}
-        Hosted checkout flow — paste a provider embed here later, or set the
-        checkout URL in config.
+        Click the button below let's proceed
       </p>
-
-      {/* Faux field rows to preview the layout of an embedded checkout. */}
+{/* 
+      Faux field rows to preview the layout of an embedded checkout.
       <div className="space-y-3 opacity-60">
         <div className="h-11 rounded-xl border border-dashed border-white/20 bg-ink/50" />
         <div className="grid grid-cols-2 gap-3">
           <div className="h-11 rounded-xl border border-dashed border-white/20 bg-ink/50" />
           <div className="h-11 rounded-xl border border-dashed border-white/20 bg-ink/50" />
         </div>
-      </div>
+      </div> */}
 
       <a
         href={checkoutUrl}
