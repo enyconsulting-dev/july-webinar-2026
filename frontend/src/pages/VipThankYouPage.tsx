@@ -177,7 +177,7 @@ export default function VipThankYouPage() {
 
                 <div className="mt-4">
                   <PlaceholderImage
-                    src="/images/platinum-toolkit.jpg"
+                    src="enospeech.png"
                     alt="Platinum consulting toolkit"
                     label="Platinum toolkit mockup"
                     aspect="16/9"
