@@ -50,6 +50,8 @@ class Settings(BaseSettings):
 
     # --- Admin export ---
     admin_export_token: str = ""
+    admin_email: str = ""
+    admin_password: str = ""
 
     # --- Event / Zoom ---
     zoom_registration_url: str = (

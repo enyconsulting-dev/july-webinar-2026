@@ -16,11 +16,18 @@ logger = logging.getLogger("admin")
 router = APIRouter(prefix="/api/admin", tags=["admin"])
 
 
+def get_admin_token(expected_token: str) -> str:
+    """Return the configured token or the built-in demo token for local/testing use."""
+    token = (expected_token or "").strip()
+    return token or "admin-demo-token"
+
+
 def is_authorized_admin(expected_token: str, provided_token: str | None) -> bool:
-    """Allow access when no token is configured or the provided token matches."""
+    """Allow access when the provided token matches the configured or fallback token."""
+    fallback_token = get_admin_token(expected_token)
     if not expected_token:
-        return True
-    return bool(provided_token and provided_token == expected_token)
+        return provided_token in {None, "", fallback_token}
+    return bool(provided_token and provided_token == fallback_token)
 
 
 def build_csv_payload(rows: list[dict[str, Any]]) -> str:
@@ -63,8 +70,16 @@ async def admin_login(payload: dict[str, str]) -> JSONResponse:
     email = (payload.get("email") or "").strip().lower()
     password = (payload.get("password") or "").strip()
 
-    if email == "eny@admin1234" and password == "Admin@1234!":
-        return JSONResponse({"ok": True, "token": "admin-demo-token"})
+    configured_email = (settings.admin_email or "").strip().lower()
+    configured_password = (settings.admin_password or "").strip()
+
+    if configured_email and configured_password:
+        if email == configured_email and password == configured_password:
+            token = get_admin_token(settings.admin_export_token)
+            return JSONResponse({"ok": True, "token": token})
+    elif settings.environment != "production" and email == "admin@example.com" and password == "admin":
+        token = get_admin_token(settings.admin_export_token)
+        return JSONResponse({"ok": True, "token": token})
 
     raise HTTPException(status_code=401, detail="Invalid admin credentials")
 
