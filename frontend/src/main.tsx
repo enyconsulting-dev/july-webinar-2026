@@ -7,6 +7,8 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./index.css";
 import RootLayout from "./RootLayout";
 import { CurrencyProvider } from "./context/CurrencyContext";
+import AdminDashboardPage from "./pages/AdminDashboardPage";
+import AdminLoginPage from "./pages/AdminLoginPage";
 import OptInPage from "./pages/OptInPage";
 import ThankYouPage from "./pages/ThankYouPage";
 import VipCheckoutPage from "./pages/VipCheckoutPage";
@@ -24,6 +26,8 @@ const router = createBrowserRouter([
       { path: "/vip-confirmed", element: <VipThankYouPage /> },
       { path: "/platinum-checkout", element: <PlatinumCheckoutPage /> },
       { path: "/platinum-confirmed", element: <PlatinumThankYouPage /> },
+      { path: "/admin", element: <AdminLoginPage /> },
+      { path: "/admin/dashboard", element: <AdminDashboardPage /> },
     ],
   },
 ]);

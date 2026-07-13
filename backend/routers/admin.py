@@ -4,7 +4,7 @@ import logging
 from typing import Any
 
 from fastapi import APIRouter, Depends, HTTPException, Query, Request
-from fastapi.responses import StreamingResponse
+from fastapi.responses import JSONResponse, StreamingResponse
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -25,7 +25,7 @@ def is_authorized_admin(expected_token: str, provided_token: str | None) -> bool
 
 def build_csv_payload(rows: list[dict[str, Any]]) -> str:
     output = io.StringIO()
-    writer = csv.DictWriter(output, fieldnames=["name", "email", "phone"])
+    writer = csv.DictWriter(output, fieldnames=["name", "email", "phone", "submitted_at"])
     writer.writeheader()
     for row in rows:
         writer.writerow(
@@ -33,6 +33,7 @@ def build_csv_payload(rows: list[dict[str, Any]]) -> str:
                 "name": row.get("name", ""),
                 "email": row.get("email", ""),
                 "phone": row.get("phone", ""),
+                "submitted_at": row.get("submitted_at", ""),
             }
         )
     return output.getvalue()
@@ -40,14 +41,45 @@ def build_csv_payload(rows: list[dict[str, Any]]) -> str:
 
 async def _fetch_leads(db: AsyncSession) -> list[dict[str, Any]]:
     result = await db.execute(
-        select(Lead.first_name, Lead.last_name, Lead.email, Lead.phone)
+        select(Lead.first_name, Lead.last_name, Lead.email, Lead.phone, Lead.created_at)
         .order_by(Lead.created_at.desc())
     )
     rows = []
-    for first_name, last_name, email, phone in result.all():
+    for first_name, last_name, email, phone, created_at in result.all():
         name = " ".join(part for part in [first_name, last_name] if part).strip()
-        rows.append({"name": name, "email": email, "phone": phone or ""})
+        rows.append(
+            {
+                "name": name,
+                "email": email,
+                "phone": phone or "",
+                "submitted_at": created_at.isoformat() if created_at else "",
+            }
+        )
     return rows
+
+
+@router.post("/login")
+async def admin_login(payload: dict[str, str]) -> JSONResponse:
+    email = (payload.get("email") or "").strip().lower()
+    password = (payload.get("password") or "").strip()
+
+    if email == "eny@admin1234" and password == "Admin@1234!":
+        return JSONResponse({"ok": True, "token": "admin-demo-token"})
+
+    raise HTTPException(status_code=401, detail="Invalid admin credentials")
+
+
+@router.get("/leads")
+async def list_leads(
+    token: str | None = Query(default=None),
+    db: AsyncSession = Depends(get_db),
+) -> JSONResponse:
+    expected_token = (settings.admin_export_token or "").strip()
+    if not is_authorized_admin(expected_token, token):
+        raise HTTPException(status_code=401, detail="Unauthorized")
+
+    rows = await _fetch_leads(db)
+    return JSONResponse({"leads": rows})
 
 
 @router.get("/leads.csv")
