@@ -19,7 +19,7 @@ export default function AdminDashboardPage() {
   useEffect(() => {
     const token = sessionStorage.getItem("admin_token");
     if (!token) {
-      navigate("/admin");
+      navigate("/admin", { replace: true });
       return;
     }
 
@@ -41,10 +41,15 @@ export default function AdminDashboardPage() {
     loadLeads();
   }, [navigate]);
 
+  function handleLogout() {
+    sessionStorage.removeItem("admin_token");
+    navigate("/admin", { replace: true });
+  }
+
   async function handleExport() {
     const token = sessionStorage.getItem("admin_token");
     if (!token) {
-      navigate("/admin");
+      navigate("/admin", { replace: true });
       return;
     }
 
@@ -63,12 +68,20 @@ export default function AdminDashboardPage() {
               View names, emails, phone numbers, and submission dates for all registered visitors.
             </p>
           </div>
-          <button
-            onClick={handleExport}
-            className="rounded-xl bg-gold px-4 py-3 font-semibold text-ink transition hover:opacity-90"
-          >
-            Download CSV
-          </button>
+          <div className="flex gap-3">
+            <button
+              onClick={handleExport}
+              className="rounded-xl bg-gold px-4 py-3 font-semibold text-ink transition hover:opacity-90"
+            >
+              Download CSV
+            </button>
+            <button
+              onClick={handleLogout}
+              className="rounded-xl border border-white/15 px-4 py-3 font-semibold text-cream transition hover:border-gold hover:text-gold"
+            >
+              Logout
+            </button>
+          </div>
         </div>
 
         {loading ? (
