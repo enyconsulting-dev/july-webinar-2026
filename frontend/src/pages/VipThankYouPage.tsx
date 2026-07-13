@@ -42,7 +42,7 @@ const VALUE_STACK = [
 
 export default function VipThankYouPage() {
   const navigate = useNavigate();
-  const { currency, setCurrency } = useCurrency();
+  const { currency } = useCurrency();
   const platinumPriceLabel = currency === "NGN" ? "₦25,000" : "$67";
 
   return (
@@ -100,22 +100,8 @@ export default function VipThankYouPage() {
             <span className="eyebrow">One-Time Offer — This Page Only</span>
             <div className="mb-4 flex flex-wrap items-center gap-3">
               <span className="text-sm font-semibold uppercase tracking-[0.3em] text-gold-light">
-                Currency
+                {currency === "NGN" ? "Pricing for Nigeria" : "Pricing for International Visitors"}
               </span>
-              <button
-                type="button"
-                onClick={() => setCurrency("NGN")}
-                className={`rounded-full px-3 py-1.5 text-sm ${currency === "NGN" ? "bg-gold text-ink" : "bg-white/10 text-cream/80"}`}
-              >
-                NGN
-              </button>
-              <button
-                type="button"
-                onClick={() => setCurrency("USD")}
-                className={`rounded-full px-3 py-1.5 text-sm ${currency === "USD" ? "bg-gold text-ink" : "bg-white/10 text-cream/80"}`}
-              >
-                USD
-              </button>
             </div>
             <h2 className="mt-4 text-2xl font-semibold sm:text-3xl">
               Upgrade to the Platinum Pass for{" "}

@@ -29,7 +29,9 @@ function readStoredCurrency(): Currency {
 
   const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
   const locale = `${navigator.language || ""} ${navigator.languages?.join(" ") || ""}`.toLowerCase();
-  if (timezone === "Africa/Lagos" || locale.includes("ng") || locale.includes("nigeria")) {
+  const maybeNigeria = /(^|[\s_-])(ng|nigeria|lagos)(\b|$)/.test(locale) || timezone === "Africa/Lagos";
+
+  if (maybeNigeria) {
     return "NGN";
   }
 
