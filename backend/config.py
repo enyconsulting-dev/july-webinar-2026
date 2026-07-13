@@ -48,6 +48,9 @@ class Settings(BaseSettings):
     # Used to build the "Add to Calendar" booking widget on the thank-you page.
     ghl_calendar_id: str = ""
 
+    # --- Admin export ---
+    admin_export_token: str = ""
+
     # --- Event / Zoom ---
     zoom_registration_url: str = (
         "https://us06web.zoom.us/meeting/register/kZIx9YQbSBi-GbYHGHCBrg"
