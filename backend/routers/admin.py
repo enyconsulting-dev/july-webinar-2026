@@ -25,22 +25,28 @@ def is_authorized_admin(expected_token: str, provided_token: str | None) -> bool
 
 def build_csv_payload(rows: list[dict[str, Any]]) -> str:
     output = io.StringIO()
-    writer = csv.DictWriter(output, fieldnames=["name", "email"])
+    writer = csv.DictWriter(output, fieldnames=["name", "email", "phone"])
     writer.writeheader()
     for row in rows:
-        writer.writerow({"name": row.get("name", ""), "email": row.get("email", "")})
+        writer.writerow(
+            {
+                "name": row.get("name", ""),
+                "email": row.get("email", ""),
+                "phone": row.get("phone", ""),
+            }
+        )
     return output.getvalue()
 
 
 async def _fetch_leads(db: AsyncSession) -> list[dict[str, Any]]:
     result = await db.execute(
-        select(Lead.first_name, Lead.last_name, Lead.email)
+        select(Lead.first_name, Lead.last_name, Lead.email, Lead.phone)
         .order_by(Lead.created_at.desc())
     )
     rows = []
-    for first_name, last_name, email in result.all():
+    for first_name, last_name, email, phone in result.all():
         name = " ".join(part for part in [first_name, last_name] if part).strip()
-        rows.append({"name": name, "email": email})
+        rows.append({"name": name, "email": email, "phone": phone or ""})
     return rows
 
 
