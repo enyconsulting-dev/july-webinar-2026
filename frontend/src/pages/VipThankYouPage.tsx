@@ -99,9 +99,9 @@ export default function VipThankYouPage() {
           <div className="rounded-[1.4rem] bg-ink-800/80 p-6 sm:p-9">
             <span className="eyebrow">One-Time Offer — This Page Only</span>
             <div className="mb-4 flex flex-wrap items-center gap-3">
-              <span className="text-sm font-semibold uppercase tracking-[0.3em] text-gold-light">
+              {/* <span className="text-sm font-semibold uppercase tracking-[0.3em] text-gold-light">
                 {currency === "NGN" ? "Pricing for Nigeria" : "Pricing for International Visitors"}
-              </span>
+              </span> */}
             </div>
             <h2 className="mt-4 text-2xl font-semibold sm:text-3xl">
               Upgrade to the Platinum Pass for{" "}
