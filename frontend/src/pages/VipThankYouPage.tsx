@@ -32,18 +32,23 @@ const PLATINUM_INCLUDES = [
   },
 ];
 
-const VALUE_STACK = [
-  { item: "Everything in VIP Pass", value: "₦10,000 / $27" },
-  { item: "Pre-Masterclass Quick-Start Kit", value: "₦25,000 / $67" },
-  { item: "Done-For-You Consulting Templates", value: "Included" },
-  { item: "Platinum-Only Live Working Session", value: "Included" },
-  { item: "Priority Program Seat Reservation", value: "Included" },
-];
-
 export default function VipThankYouPage() {
   const navigate = useNavigate();
   const { currency } = useCurrency();
   const platinumPriceLabel = currency === "NGN" ? "₦25,000" : "$67";
+  const valueStack = [
+    {
+      item: "Everything in VIP Pass",
+      value: currency === "NGN" ? "₦10,000" : "$27",
+    },
+    {
+      item: "Pre-Masterclass Quick-Start Kit",
+      value: currency === "NGN" ? "₦25,000" : "$67",
+    },
+    { item: "Done-For-You Consulting Templates", value: "Included" },
+    { item: "Platinum-Only Live Working Session", value: "Included" },
+    { item: "Priority Program Seat Reservation", value: "Included" },
+  ];
 
   return (
     <main className="container-tight py-14">
@@ -138,7 +143,7 @@ export default function VipThankYouPage() {
                     What You Get
                   </p>
                   <dl className="divide-y divide-white/10">
-                    {VALUE_STACK.map((row) => (
+                    {valueStack.map((row) => (
                       <div key={row.item} className="flex justify-between gap-4 py-2.5">
                         <dt className="text-sm text-cream/70">{row.item}</dt>
                         <dd className="text-sm font-semibold text-cream">{row.value}</dd>
