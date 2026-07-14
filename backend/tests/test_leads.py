@@ -2,11 +2,13 @@ import asyncio
 import os
 import sys
 import unittest
+from unittest.mock import patch
 
 from fastapi import BackgroundTasks, HTTPException
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
+from app.integrations.pabbly import trigger_zoom_registration
 from database import build_async_engine_kwargs
 from routers.leads import create_lead
 from schemas import LeadCreate
@@ -47,5 +49,14 @@ class LeadCreationTests(unittest.TestCase):
                 )
 
             self.assertEqual(ctx.exception.status_code, 503)
+
+        asyncio.run(run_test())
+
+
+class PabblyIntegrationTests(unittest.TestCase):
+    def test_returns_false_when_webhook_url_missing(self):
+        async def run_test():
+            with patch("app.integrations.pabbly.settings.pabbly_webhook_url", ""):
+                self.assertFalse(await trigger_zoom_registration("test@example.com", "Test"))
 
         asyncio.run(run_test())

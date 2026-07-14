@@ -57,6 +57,7 @@ class Settings(BaseSettings):
     zoom_registration_url: str = (
         "https://us06web.zoom.us/meeting/register/kZIx9YQbSBi-GbYHGHCBrg"
     )
+    pabbly_webhook_url: str = ""
 
     @property
     def cors_origin_list(self) -> list[str]:

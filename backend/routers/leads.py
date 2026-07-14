@@ -6,6 +6,7 @@ from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 
 import ghl
+from app.integrations.pabbly import trigger_zoom_registration
 from config import settings
 from database import get_db
 from models import Lead
@@ -67,6 +68,13 @@ async def create_lead(
 
     # Forward to GHL without blocking the response.
     background_tasks.add_task(_sync_lead_to_ghl, lead.id, payload)
+    # Pabbly now sends the Zoom registration confirmation email directly, so this is intentionally not used here.
+    background_tasks.add_task(
+        trigger_zoom_registration,
+        lead.email,
+        lead.first_name,
+        lead.last_name,
+    )
 
     return LeadResponse(
         id=lead.id,
