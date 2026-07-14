@@ -1,10 +1,10 @@
 // /home/obed/Documents/free-webinar-sales/frontend/src/pages/ThankYouPage.tsx
 
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 
-import ConfirmationBox from "../components/ConfirmationBox";
+// import ConfirmationBox from "../components/ConfirmationBox";
 import PlaceholderImage from "../components/PlaceholderImage";
 import Reveal from "../components/Reveal";
 import { config } from "../config";
@@ -13,9 +13,9 @@ import { useCurrency } from "../context/CurrencyContext";
 export default function ThankYouPage() {
   const navigate = useNavigate();
   const firstName = sessionStorage.getItem("lead_first_name") ?? "";
-  const zoomUrl = sessionStorage.getItem("zoom_url") ?? config.zoomRegistrationUrl;
+ //  const zoomUrl = sessionStorage.getItem("zoom_url") ?? config.zoomRegistrationUrl;
   const { currency } = useCurrency();
-  const [calendarUrl, setCalendarUrl] = useState("");
+  // const [calendarUrl, setCalendarUrl] = useState("");
   const vipPriceLabel = currency === "NGN" ? "₦10,000" : "$27";
 
   useEffect(() => {
@@ -25,9 +25,9 @@ export default function ThankYouPage() {
       try {
         const res = await fetch(`${config.apiBase}/api/config`);
         if (!res.ok) return;
-        const data = await res.json();
+       // const data = await res.json();
         if (!cancelled) {
-          setCalendarUrl(data.ghl_calendar_url ?? "");
+          // setCalendarUrl(data.ghl_calendar_url ?? "");
         }
       } catch {
         // Keep the button hidden if the config endpoint is unavailable.
@@ -65,7 +65,7 @@ export default function ThankYouPage() {
       </Reveal>
 
       {/* Confirmation */}
-      <Reveal delay={0.15}>
+      {/* <Reveal delay={0.15}>
         <div className="mt-8">
           <ConfirmationBox title="Your Registration Is Confirmed">
             <p>
@@ -96,7 +96,7 @@ export default function ThankYouPage() {
             </div>
           </ConfirmationBox>
         </div>
-      </Reveal>
+      </Reveal> */}
 
       {/* Transition copy */}
       <Reveal delay={0.2}>
