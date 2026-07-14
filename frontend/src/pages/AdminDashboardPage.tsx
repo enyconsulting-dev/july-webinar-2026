@@ -7,6 +7,11 @@ interface LeadRow {
   name: string;
   email: string;
   phone: string;
+  city: string;
+  country: string;
+  industry: string;
+  job_title: string;
+  questions_comments: string;
   submitted_at: string;
 }
 
@@ -65,7 +70,7 @@ export default function AdminDashboardPage() {
             <p className="text-sm font-semibold uppercase tracking-[0.3em] text-gold-light">Admin Dashboard</p>
             <h1 className="mt-2 text-3xl font-semibold">Registered Leads</h1>
             <p className="mt-2 text-sm text-cream/70">
-              View names, emails, phone numbers, and submission dates for all registered visitors.
+              View names, emails, phone numbers, and Zoom registration details for all registered visitors.
             </p>
           </div>
           <div className="flex gap-3">
@@ -98,6 +103,11 @@ export default function AdminDashboardPage() {
                   <th className="px-3 py-3">Name</th>
                   <th className="px-3 py-3">Email</th>
                   <th className="px-3 py-3">Phone</th>
+                  <th className="px-3 py-3">City</th>
+                  <th className="px-3 py-3">Country</th>
+                  <th className="px-3 py-3">Industry</th>
+                  <th className="px-3 py-3">Job Title</th>
+                  <th className="px-3 py-3">Questions</th>
                   <th className="px-3 py-3">Submitted At</th>
                 </tr>
               </thead>
@@ -107,6 +117,11 @@ export default function AdminDashboardPage() {
                     <td className="px-3 py-3">{lead.name}</td>
                     <td className="px-3 py-3">{lead.email}</td>
                     <td className="px-3 py-3">{lead.phone}</td>
+                    <td className="px-3 py-3">{lead.city}</td>
+                    <td className="px-3 py-3">{lead.country}</td>
+                    <td className="px-3 py-3">{lead.industry}</td>
+                    <td className="px-3 py-3">{lead.job_title}</td>
+                    <td className="px-3 py-3">{lead.questions_comments}</td>
                     <td className="px-3 py-3">{lead.submitted_at}</td>
                   </tr>
                 ))}

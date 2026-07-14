@@ -48,17 +48,33 @@ def build_csv_payload(rows: list[dict[str, Any]]) -> str:
 
 async def _fetch_leads(db: AsyncSession) -> list[dict[str, Any]]:
     result = await db.execute(
-        select(Lead.first_name, Lead.last_name, Lead.email, Lead.phone, Lead.created_at)
+        select(
+            Lead.first_name,
+            Lead.last_name,
+            Lead.email,
+            Lead.phone,
+            Lead.city,
+            Lead.country,
+            Lead.industry,
+            Lead.job_title,
+            Lead.questions_comments,
+            Lead.created_at,
+        )
         .order_by(Lead.created_at.desc())
     )
     rows = []
-    for first_name, last_name, email, phone, created_at in result.all():
+    for first_name, last_name, email, phone, city, country, industry, job_title, questions_comments, created_at in result.all():
         name = " ".join(part for part in [first_name, last_name] if part).strip()
         rows.append(
             {
                 "name": name,
                 "email": email,
                 "phone": phone or "",
+                "city": city or "",
+                "country": country or "",
+                "industry": industry or "",
+                "job_title": job_title or "",
+                "questions_comments": questions_comments or "",
                 "submitted_at": created_at.isoformat() if created_at else "",
             }
         )

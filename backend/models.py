@@ -18,6 +18,11 @@ class Lead(Base):
     last_name: Mapped[str] = mapped_column(String(120))
     email: Mapped[str] = mapped_column(String(255), index=True)
     phone: Mapped[str | None] = mapped_column(String(50), nullable=True)
+    city: Mapped[str | None] = mapped_column(String(120), nullable=True)
+    country: Mapped[str | None] = mapped_column(String(120), nullable=True)
+    industry: Mapped[str | None] = mapped_column(String(120), nullable=True)
+    job_title: Mapped[str | None] = mapped_column(String(120), nullable=True)
+    questions_comments: Mapped[str | None] = mapped_column(Text, nullable=True)
 
     # Marketing / attribution
     source: Mapped[str] = mapped_column(String(120), default="opt-in-page")

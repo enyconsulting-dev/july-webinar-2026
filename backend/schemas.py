@@ -12,6 +12,11 @@ class LeadCreate(BaseModel):
     last_name: str = Field(..., min_length=1, max_length=120)
     email: EmailStr
     phone: str | None = Field(default=None, max_length=50)
+    city: str = Field(..., min_length=1, max_length=120)
+    country: str = Field(..., min_length=1, max_length=120)
+    industry: str = Field(..., min_length=1, max_length=120)
+    job_title: str = Field(..., min_length=1, max_length=120)
+    questions_comments: str = Field(..., min_length=1, max_length=2000)
 
     source: str = Field(default="opt-in-page", max_length=120)
     utm_source: str | None = None

@@ -50,6 +50,11 @@ async def create_lead(
         last_name=payload.last_name,
         email=payload.email,
         phone=payload.phone,
+        city=payload.city,
+        country=payload.country,
+        industry=payload.industry,
+        job_title=payload.job_title,
+        questions_comments=payload.questions_comments,
         source=payload.source,
         utm_source=payload.utm_source,
         utm_medium=payload.utm_medium,
@@ -74,6 +79,12 @@ async def create_lead(
         lead.email,
         lead.first_name,
         lead.last_name,
+        city=lead.city or "",
+        country=lead.country or "",
+        phone=lead.phone or "",
+        industry=lead.industry or "",
+        job_title=lead.job_title or "",
+        questions_comments=lead.questions_comments or "",
     )
 
     return LeadResponse(
