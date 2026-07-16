@@ -7,10 +7,12 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 import ghl
 from app.integrations.pabbly import trigger_zoom_registration
+from app.integrations.google_sheets import append_lead_to_sheet
 from config import settings
 from database import get_db
 from models import Lead
 from schemas import LeadCreate, LeadResponse
+from datetime import datetime, timezone
 
 logger = logging.getLogger("leads")
 router = APIRouter(prefix="/api/leads", tags=["leads"])
@@ -85,6 +87,23 @@ async def create_lead(
         industry=lead.industry or "",
         job_title=lead.job_title or "",
         questions_comments=lead.questions_comments or "",
+    )
+
+    # Fire-and-forget: append to Google Sheet if configured. Do not let this
+    # affect the HTTP response under any circumstance.
+    timestamp = datetime.now(timezone.utc).isoformat()
+    background_tasks.add_task(
+        append_lead_to_sheet,
+        timestamp,
+        lead.first_name or "",
+        lead.last_name or "",
+        lead.email or "",
+        lead.phone or "",
+        lead.city or "",
+        lead.country or "",
+        lead.industry or "",
+        lead.job_title or "",
+        "I am interested in learning more about the webinar agenda, practical sessions, and any follow-up resources that will be provided after the event.",
     )
 
     return LeadResponse(

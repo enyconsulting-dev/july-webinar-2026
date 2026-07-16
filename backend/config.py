@@ -58,6 +58,9 @@ class Settings(BaseSettings):
         "https://us06web.zoom.us/meeting/register/kZIx9YQbSBi-GbYHGHCBrg"
     )
     pabbly_webhook_url: str = ""
+    # Google Sheets: base64-encoded service account JSON and target sheet id
+    google_sheets_credentials_b64: str = ""
+    google_sheet_id: str = ""
 
     @property
     def cors_origin_list(self) -> list[str]:
