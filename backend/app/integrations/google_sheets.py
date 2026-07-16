@@ -1,5 +1,6 @@
 import asyncio
 import base64
+import binascii
 import json
 import logging
 import os
@@ -39,8 +40,26 @@ async def append_lead_to_sheet(
             from google.oauth2.service_account import Credentials
             from googleapiclient.discovery import build
 
-            decoded = base64.b64decode(creds_b64)
-            info = json.loads(decoded)
+            # The environment value may be either a base64-encoded JSON string
+            # or the raw JSON. Try base64 decode first, then fall back to raw.
+            info = None
+            try:
+                decoded = base64.b64decode(creds_b64)
+                info = json.loads(decoded)
+            except (binascii.Error, json.JSONDecodeError):
+                try:
+                    info = json.loads(creds_b64)
+                except json.JSONDecodeError:
+                    # Attempt a forgiving strip of surrounding quotes/newlines
+                    try:
+                        stripped = creds_b64.strip().strip('"')
+                        info = json.loads(stripped)
+                    except Exception:
+                        logger.warning(
+                            "Google Sheets credentials could not be decoded as JSON; skipping append for %s",
+                            email,
+                        )
+                        return False
 
             creds = Credentials.from_service_account_info(
                 info, scopes=["https://www.googleapis.com/auth/spreadsheets"]
