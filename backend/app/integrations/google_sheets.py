@@ -43,16 +43,36 @@ async def append_lead_to_sheet(
             # The environment value may be either a base64-encoded JSON string
             # or the raw JSON. Try base64 decode first, then fall back to raw.
             info = None
+            # Pre-clean common issues: surrounding quotes and escaped newlines
+            candidate = creds_b64.strip()
+            if (candidate.startswith('"') and candidate.endswith('"')) or (
+                candidate.startswith("'") and candidate.endswith("'")
+            ):
+                candidate = candidate[1:-1]
+            # Remove literal backslash-n sequences often introduced by env editors
+            candidate = candidate.replace('\\n', '')
+            candidate = candidate.replace('\\r', '')
+
+            # Try base64 decode with padding fallback
             try:
-                decoded = base64.b64decode(creds_b64)
-                info = json.loads(decoded)
-            except (binascii.Error, json.JSONDecodeError):
+                padded = candidate
+                padding = len(padded) % 4
+                if padding:
+                    padded += '=' * (4 - padding)
+                decoded = base64.b64decode(padded)
+                # Ensure we have a str for json.loads
                 try:
-                    info = json.loads(creds_b64)
+                    decoded_text = decoded.decode('utf-8')
+                except Exception:
+                    decoded_text = decoded
+                info = json.loads(decoded_text)
+            except (binascii.Error, json.JSONDecodeError, UnicodeDecodeError):
+                # Fallback: maybe the env var is raw JSON already
+                try:
+                    info = json.loads(candidate)
                 except json.JSONDecodeError:
-                    # Attempt a forgiving strip of surrounding quotes/newlines
                     try:
-                        stripped = creds_b64.strip().strip('"')
+                        stripped = candidate.strip()
                         info = json.loads(stripped)
                     except Exception:
                         logger.warning(
