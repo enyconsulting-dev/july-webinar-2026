@@ -45,41 +45,68 @@ async def append_lead_to_sheet(
             info = None
             # Pre-clean common issues: surrounding quotes and escaped newlines
             candidate = creds_b64.strip()
-            if (candidate.startswith('"') and candidate.endswith('"')) or (
-                candidate.startswith("'") and candidate.endswith("'")
-            ):
-                candidate = candidate[1:-1]
+
+            # If the value itself is a JSON string containing the real value
+            # (for example stored as '"ewog..."'), json.loads will unwrap it.
+            try:
+                if (candidate.startswith('"') and candidate.endswith('"')) or (
+                    candidate.startswith("'") and candidate.endswith("'")
+                ):
+                    candidate_unwrapped = json.loads(candidate)
+                    if isinstance(candidate_unwrapped, str):
+                        candidate = candidate_unwrapped
+            except Exception:
+                # ignore unwrap errors, fall back to other strategies
+                pass
+
             # Remove literal backslash-n sequences often introduced by env editors
             candidate = candidate.replace('\\n', '')
             candidate = candidate.replace('\\r', '')
 
-            # Try base64 decode with padding fallback
-            try:
-                padded = candidate
+            def try_base64_decode(s: str):
+                padded = s
                 padding = len(padded) % 4
                 if padding:
                     padded += '=' * (4 - padding)
-                decoded = base64.b64decode(padded)
-                # Ensure we have a str for json.loads
+                return base64.b64decode(padded)
+
+            info = None
+            # Strategy A: candidate is base64 of JSON
+            try:
+                decoded = try_base64_decode(candidate)
                 try:
                     decoded_text = decoded.decode('utf-8')
                 except Exception:
                     decoded_text = decoded
-                info = json.loads(decoded_text)
-            except (binascii.Error, json.JSONDecodeError, UnicodeDecodeError):
-                # Fallback: maybe the env var is raw JSON already
+                # decoded_text may itself be a JSON string or raw JSON
+                try:
+                    info = json.loads(decoded_text)
+                except json.JSONDecodeError:
+                    # Maybe decoded_text is a JSON string containing the JSON
+                    try:
+                        inner = json.loads(decoded_text)
+                        if isinstance(inner, str):
+                            info = json.loads(inner)
+                    except Exception:
+                        info = None
+            except (binascii.Error, UnicodeDecodeError):
+                info = None
+
+            # Strategy B: candidate is raw JSON
+            if info is None:
                 try:
                     info = json.loads(candidate)
-                except json.JSONDecodeError:
-                    try:
-                        stripped = candidate.strip()
-                        info = json.loads(stripped)
-                    except Exception:
-                        logger.warning(
-                            "Google Sheets credentials could not be decoded as JSON; skipping append for %s",
-                            email,
-                        )
-                        return False
+                except Exception:
+                    info = None
+
+            if info is None:
+                masked = (candidate[:50] + "...") if len(candidate) > 50 else candidate
+                logger.warning(
+                    "Google Sheets credentials could not be decoded as JSON; skipping append for %s (candidate start: %r)",
+                    email,
+                    masked,
+                )
+                return False
 
             creds = Credentials.from_service_account_info(
                 info, scopes=["https://www.googleapis.com/auth/spreadsheets"]
