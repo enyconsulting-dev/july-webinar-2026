@@ -278,6 +278,8 @@ const COUNTRY_OPTIONS = [
   { value: "ZW", label: "Zimbabwe" },
 ];
 
+// I might consider shipping the label instead of the value to the backend, but for now, this is a simple opt-in form and I don't need to do any processing on the backend. If I ever need to do that, I can just map the label back to the value in the backend.
+
 /**
  * Custom-designed opt-in form. Posts to the FastAPI backend (which forwards to
  * GoHighLevel), stores the registrant email locally for the upsell flow, then
