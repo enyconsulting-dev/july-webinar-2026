@@ -1,7 +1,5 @@
 // /home/obed/Documents/free-webinar-sales/frontend/src/pages/PlatinumCheckoutPage.tsx
 
-import { useNavigate } from "react-router-dom";
-
 import CheckoutEmbedZone from "../components/CheckoutEmbedZone";
 import OrderSummary from "../components/OrderSummary";
 import Reveal from "../components/Reveal";
@@ -10,7 +8,6 @@ import { config } from "../config";
 import { useCurrency } from "../context/CurrencyContext";
 
 export default function PlatinumCheckoutPage() {
-  const navigate = useNavigate();
   const email = sessionStorage.getItem("lead_email") ?? "";
   const { currency } = useCurrency();
   const isNgn = currency === "NGN";
@@ -20,7 +17,6 @@ export default function PlatinumCheckoutPage() {
   async function handleProceed() {
     await createOrder(email, "platinum");
     sessionStorage.setItem("has_platinum", "true");
-    navigate("/platinum-confirmed");
   }
 
   return (

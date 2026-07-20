@@ -1,7 +1,5 @@
 // /home/obed/Documents/free-webinar-sales/frontend/src/pages/VipCheckoutPage.tsx
 
-import { useNavigate } from "react-router-dom";
-
 import CheckoutEmbedZone from "../components/CheckoutEmbedZone";
 import OrderSummary from "../components/OrderSummary";
 import Reveal from "../components/Reveal";
@@ -10,7 +8,6 @@ import { config } from "../config";
 import { useCurrency } from "../context/CurrencyContext";
 
 export default function VipCheckoutPage() {
-  const navigate = useNavigate();
   const email = sessionStorage.getItem("lead_email") ?? "";
   const { currency } = useCurrency();
   const isNgn = currency === "NGN";
@@ -20,7 +17,6 @@ export default function VipCheckoutPage() {
   async function handleProceed() {
     await createOrder(email, "vip");
     sessionStorage.setItem("has_vip", "true");
-    navigate("/vip-confirmed");
   }
 
   return (

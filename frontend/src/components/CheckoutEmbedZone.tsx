@@ -6,7 +6,7 @@ interface CheckoutEmbedZoneProps {
   ctaText: string;
   checkoutUrl: string;
   microcopy: string;
-  onProceed?: () => void;
+  onProceed?: () => Promise<void>;
 }
 
 /**
@@ -43,9 +43,12 @@ export default function CheckoutEmbedZone({
 
       <a
         href={checkoutUrl}
-        onClick={(e) => {
-          if (isPlaceholder) e.preventDefault();
-          onProceed?.();
+        onClick={async (e) => {
+          e.preventDefault();
+          await onProceed?.();
+          if (!isPlaceholder) {
+            window.location.href = checkoutUrl;
+          }
         }}
         className="btn-cta mt-6 w-full"
       >
