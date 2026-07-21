@@ -3,6 +3,7 @@
 import CheckoutEmbedZone from "../components/CheckoutEmbedZone";
 import OrderSummary from "../components/OrderSummary";
 import Reveal from "../components/Reveal";
+import ResponsiveVideo from "../components/ResponsiveVideo";
 import { createOrder } from "../api";
 import { config } from "../config";
 import { useCurrency } from "../context/CurrencyContext";
@@ -35,6 +36,13 @@ export default function PlatinumCheckoutPage() {
           </p>
         </div>
       </Reveal>
+
+      {/* ---------- VIDEO ---------- */}
+      <section className="container-tight pb-10">
+        <Reveal>
+          <ResponsiveVideo videoId="1211638545" className="mx-auto" />
+        </Reveal>
+      </section>
 
       <div className="mt-10 grid gap-6 lg:grid-cols-2">
         <Reveal>

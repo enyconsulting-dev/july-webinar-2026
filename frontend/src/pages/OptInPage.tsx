@@ -4,8 +4,9 @@ import { motion } from "framer-motion";
 
 import Countdown from "../components/Countdown";
 import PlaceholderImage from "../components/PlaceholderImage";
-import RegistrationForm from "../components/RegistrationForm";
 import Reveal from "../components/Reveal";
+import RegistrationForm from "../components/RegistrationForm";
+import ResponsiveVideo from "../components/ResponsiveVideo";
 import TestimonialSlider from "../components/TestimonialSlider";
 import TrustBar from "../components/TrustBar";
 
@@ -71,6 +72,13 @@ export default function OptInPage() {
               <span className="text-sm text-cream/50">until doors open</span>
             </div>
 
+            {/* ---------- VIDEO ---------- */}
+          <section className="container-tight pb-10">
+        <   Reveal>
+          <ResponsiveVideo videoId="1211626892" className="mx-auto" />
+        </Reveal>
+      </section>
+
             {/* Registration card */}
             <motion.div
               id="register"
@@ -119,6 +127,8 @@ export default function OptInPage() {
           </div>
         </div>
       </section>
+
+      
 
       {/* ---------- PROMISE BAR ---------- */}
       <section className="mt-16 border-y border-white/10 bg-ink-800/40 py-5">

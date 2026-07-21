@@ -3,6 +3,7 @@
 import CheckoutEmbedZone from "../components/CheckoutEmbedZone";
 import OrderSummary from "../components/OrderSummary";
 import Reveal from "../components/Reveal";
+import ResponsiveVideo from "../components/ResponsiveVideo";
 import { createOrder } from "../api";
 import { config } from "../config";
 import { useCurrency } from "../context/CurrencyContext";
@@ -31,6 +32,13 @@ export default function VipCheckoutPage() {
           <p className="mt-4 text-cream/70">Complete your order below.</p>
         </div>
       </Reveal>
+
+      {/* ---------- VIDEO ---------- */}
+      <section className="container-tight pb-10">
+        <Reveal>
+          <ResponsiveVideo videoId="1211632584" className="mx-auto" />
+        </Reveal>
+      </section>
 
       <div className="mt-10 grid gap-6 lg:grid-cols-2">
         <Reveal>
