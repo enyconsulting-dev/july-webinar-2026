@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 // import ConfirmationBox from "../components/ConfirmationBox";
 import PlaceholderImage from "../components/PlaceholderImage";
 import Reveal from "../components/Reveal";
+import ResponsiveVideo from "../components/ResponsiveVideo";
 import { config } from "../config";
 import { useCurrency } from "../context/CurrencyContext";
 
@@ -62,6 +63,12 @@ export default function ThankYouPage() {
           <span className="text-gold-gradient">Every Possible Advantage</span> Before the
           Masterclass.
         </h1>
+      </Reveal>
+
+      <Reveal delay={0.15}>
+        <div className="mt-8">
+          <ResponsiveVideo videoId="1211645310" className="mx-auto" />
+        </div>
       </Reveal>
 
       {/* Confirmation */}

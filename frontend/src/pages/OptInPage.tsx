@@ -74,7 +74,7 @@ export default function OptInPage() {
 
             {/* ---------- VIDEO ---------- */}
           <section className="container-tight pb-10">
-        <   Reveal>
+        <Reveal>
           <ResponsiveVideo videoId="1211626892" className="mx-auto" />
         </Reveal>
       </section>

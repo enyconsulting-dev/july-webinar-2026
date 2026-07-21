@@ -47,6 +47,7 @@ export default function ResponsiveVideo({
           frameBorder="0"
           allow="autoplay; fullscreen; picture-in-picture"
           allowFullScreen
+          onError={() => setFailed(true)}
           style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
         />
       ) : (
