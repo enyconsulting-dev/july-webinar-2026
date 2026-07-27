@@ -119,7 +119,6 @@ export default function AdminDashboardPage() {
                     <td className="px-3 py-3">{lead.country}</td>
                     <td className="px-3 py-3">{lead.industry}</td>
                     <td className="px-3 py-3">{lead.job_title}</td>
-                    <td className="px-3 py-3">{lead.years_of_experience}</td>
                     <td className="px-3 py-3">{lead.submitted_at}</td>
                   </tr>
                 ))}
