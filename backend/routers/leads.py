@@ -56,7 +56,6 @@ async def create_lead(
         country=payload.country,
         industry=payload.industry,
         job_title=payload.job_title,
-        years_of_experience=payload.years_of_experience,
         source=payload.source,
         utm_source=payload.utm_source,
         utm_medium=payload.utm_medium,
@@ -86,7 +85,6 @@ async def create_lead(
         phone=lead.phone or "",
         industry=lead.industry or "",
         job_title=lead.job_title or "",
-        years_of_experience=lead.years_of_experience or "",
     )
 
     # Fire-and-forget: append to Google Sheet if configured. Do not let this
@@ -103,7 +101,6 @@ async def create_lead(
         lead.country or "",
         lead.industry or "",
         lead.job_title or "",
-        lead.years_of_experience or "",
     )
 
     return LeadResponse(

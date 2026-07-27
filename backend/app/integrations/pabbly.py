@@ -17,7 +17,6 @@ async def trigger_zoom_registration(
     phone: str = "",
     industry: str = "",
     job_title: str = "",
-    years_of_experience: str = "",
 ) -> bool:
     """Send a lead payload to Pabbly Connect for Zoom registration and email delivery."""
     if not settings.pabbly_webhook_url or not settings.pabbly_webhook_url.strip():
@@ -33,7 +32,6 @@ async def trigger_zoom_registration(
         "phone": phone,
         "industry": industry,
         "job_title": job_title,
-        "years_of_experience": years_of_experience,
     }
 
     try:

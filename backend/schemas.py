@@ -16,7 +16,6 @@ class LeadCreate(BaseModel):
     country: str = Field(..., min_length=1, max_length=120)
     industry: str = Field(..., min_length=1, max_length=120)
     job_title: str = Field(..., min_length=1, max_length=120)
-    years_of_experience: str = Field(..., min_length=1, max_length=2000)
 
     source: str = Field(default="opt-in-page", max_length=120)
     utm_source: str | None = None
