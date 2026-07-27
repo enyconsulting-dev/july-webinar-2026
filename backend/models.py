@@ -22,7 +22,7 @@ class Lead(Base):
     country: Mapped[str | None] = mapped_column(String(120), nullable=True)
     industry: Mapped[str | None] = mapped_column(String(120), nullable=True)
     job_title: Mapped[str | None] = mapped_column(String(120), nullable=True)
-    questions_comments: Mapped[str | None] = mapped_column(Text, nullable=True)
+    years_of_experience: Mapped[str | None] = mapped_column("questions_comments", Text, nullable=True)
 
     # Marketing / attribution
     source: Mapped[str] = mapped_column(String(120), default="opt-in-page")

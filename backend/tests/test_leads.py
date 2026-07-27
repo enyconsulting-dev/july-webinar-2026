@@ -47,7 +47,7 @@ class LeadCreationTests(unittest.TestCase):
                         country="NG",
                         industry="Accounting",
                         job_title="Developer",
-                        questions_comments="Interested",
+                        years_of_experience="Interested",
                     ),
                     BackgroundTasks(),
                     db=FailingDbSession(),
@@ -84,7 +84,7 @@ class PabblyIntegrationTests(unittest.TestCase):
                         phone="+2348000000000",
                         industry="Accounting",
                         job_title="Developer",
-                        questions_comments="Interested",
+                        years_of_experience="Interested",
                     )
 
             self.assertTrue(result)
@@ -101,7 +101,7 @@ class PabblyIntegrationTests(unittest.TestCase):
                     "phone": "+2348000000000",
                     "industry": "Accounting",
                     "job_title": "Developer",
-                    "questions_comments": "Interested",
+                    "years_of_experience": "Interested",
                 },
             )
 

@@ -46,7 +46,7 @@ async def append_lead_to_sheet(
     country: str,
     industry: str,
     job_title: str,
-    comment: str,
+    years_of_experience: str,
 ) -> bool:
     creds_b64 = (settings.google_sheets_credentials_b64 or "").strip()
     sheet_id = (settings.google_sheet_id or "").strip()
@@ -75,7 +75,7 @@ async def append_lead_to_sheet(
                 range="SecondSaturday!A:J",
                 valueInputOption="USER_ENTERED",
                 insertDataOption="INSERT_ROWS",
-                body={"values": [[timestamp, first_name, last_name, email, phone, city, country, industry, job_title, comment]]},
+                body={"values": [[timestamp, first_name, last_name, email, phone, city, country, industry, job_title, years_of_experience]]},
             ).execute()
             return True
         except Exception:

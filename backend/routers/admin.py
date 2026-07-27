@@ -57,13 +57,13 @@ async def _fetch_leads(db: AsyncSession) -> list[dict[str, Any]]:
             Lead.country,
             Lead.industry,
             Lead.job_title,
-            Lead.questions_comments,
+            Lead.years_of_experience,
             Lead.created_at,
         )
         .order_by(Lead.created_at.desc())
     )
     rows = []
-    for first_name, last_name, email, phone, city, country, industry, job_title, questions_comments, created_at in result.all():
+    for first_name, last_name, email, phone, city, country, industry, job_title, years_of_experience, created_at in result.all():
         name = " ".join(part for part in [first_name, last_name] if part).strip()
         rows.append(
             {
@@ -74,7 +74,7 @@ async def _fetch_leads(db: AsyncSession) -> list[dict[str, Any]]:
                 "country": country or "",
                 "industry": industry or "",
                 "job_title": job_title or "",
-                "questions_comments": questions_comments or "",
+                "years_of_experience": years_of_experience or "",
                 "submitted_at": created_at.isoformat() if created_at else "",
             }
         )

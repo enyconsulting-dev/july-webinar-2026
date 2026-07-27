@@ -15,7 +15,7 @@ interface FormState {
   country: string;
   industry: string;
   job_title: string;
-  questions_comments: string;
+  years_of_experience: string;
 }
 
 const EMPTY: FormState = {
@@ -27,7 +27,7 @@ const EMPTY: FormState = {
   country: "",
   industry: "",
   job_title: "",
-  questions_comments: "",
+  years_of_experience: "",
 };
 
 const COUNTRY_OPTIONS = [
@@ -306,10 +306,10 @@ export default function RegistrationForm() {
       country: form.country.trim(),
       industry: form.industry.trim(),
       job_title: form.job_title.trim(),
-      questions_comments: form.questions_comments.trim(),
+      years_of_experience: form.years_of_experience.trim(),
     };
 
-    if (!trimmed.first_name || !trimmed.last_name || !trimmed.email || !trimmed.city || !trimmed.country || !trimmed.industry || !trimmed.job_title || !trimmed.questions_comments) {
+    if (!trimmed.first_name || !trimmed.last_name || !trimmed.email || !trimmed.city || !trimmed.country || !trimmed.industry || !trimmed.job_title || !trimmed.years_of_experience) {
       setStatus("error");
       setError("Please complete every required field so we can send your Zoom registration details.");
       return;
@@ -459,9 +459,9 @@ export default function RegistrationForm() {
       />
       <textarea
         className={`${inputCls} min-h-28 resize-y`}
-        placeholder="Questions & comments"
-        value={form.questions_comments}
-        onChange={update("questions_comments")}
+        placeholder="Years of experience"
+        value={form.years_of_experience}
+        onChange={update("years_of_experience")}
         required
         aria-required="true"
       />
