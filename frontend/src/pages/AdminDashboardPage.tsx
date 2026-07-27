@@ -11,7 +11,6 @@ interface LeadRow {
   country: string;
   industry: string;
   job_title: string;
-  years_of_experience: string;
   submitted_at: string;
 }
 
@@ -107,7 +106,6 @@ export default function AdminDashboardPage() {
                   <th className="px-3 py-3">Country</th>
                   <th className="px-3 py-3">Industry</th>
                   <th className="px-3 py-3">Job Title</th>
-                  <th className="px-3 py-3">Years of Experience</th>
                   <th className="px-3 py-3">Submitted At</th>
                 </tr>
               </thead>

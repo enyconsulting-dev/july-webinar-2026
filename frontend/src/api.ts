@@ -11,7 +11,6 @@ export interface LeadPayload {
   country: string;
   industry: string;
   job_title: string;
-  questions_comments: string;
   source?: string;
   utm_source?: string | null;
   utm_medium?: string | null;
