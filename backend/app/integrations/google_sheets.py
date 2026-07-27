@@ -72,7 +72,7 @@ async def append_lead_to_sheet(
 
             service.spreadsheets().values().append(
                 spreadsheetId=sheet_id,
-                range="Sheet1!A:J",
+                range="SecondSaturday!A:J",
                 valueInputOption="USER_ENTERED",
                 insertDataOption="INSERT_ROWS",
                 body={"values": [[timestamp, first_name, last_name, email, phone, city, country, industry, job_title, comment]]},
