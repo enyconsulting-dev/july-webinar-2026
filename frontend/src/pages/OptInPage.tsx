@@ -7,6 +7,7 @@ import PlaceholderImage from "../components/PlaceholderImage";
 import Reveal from "../components/Reveal";
 import RegistrationForm from "../components/RegistrationForm";
 import ResponsiveVideo from "../components/ResponsiveVideo";
+import SocialProofSlider from "../components/SocialProofSlider";
 import TestimonialSlider from "../components/TestimonialSlider";
 import TrustBar from "../components/TrustBar";
 
@@ -218,9 +219,18 @@ export default function OptInPage() {
         </Reveal>
       </section>
 
+      {/* ---------- SOCIAL PROOF IMAGES SLIDER (BELOW TESTIMONIALS) ---------- */}
+      <section className="container-narrow pb-20">
+        <Reveal>
+          <SocialProofSlider />
+        </Reveal>
+      </section>
+
       {/* ---------- TRUST ---------- */}
       <section className="container-tight pb-20">
         <Reveal>
+          {/* Social Proof Images Slider (Above Trust Bar) */}
+          <SocialProofSlider />
           <TrustBar />
         </Reveal>
       </section>
