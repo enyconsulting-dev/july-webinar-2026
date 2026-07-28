@@ -5,7 +5,7 @@ export default function SocialProofSlider() {
   const images = Array.from({ length: imageCount }, (_, i) => i + 1);
 
   return (
-    <div className="grid gap-6">
+    <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
       {images.map((num) => (
         <motion.div
           key={num}
@@ -15,7 +15,7 @@ export default function SocialProofSlider() {
             duration: 0.6,
             delay: (num - 1) * 0.05, // Staggered animation
           }}
-          className="w-full md:w-1/2 lg:w-1/3"
+          className="flex items-center justify-center"
         >
           <img
             src={`/Feedback_${num}.png`}
