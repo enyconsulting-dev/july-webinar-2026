@@ -219,6 +219,22 @@ export default function OptInPage() {
         </Reveal>
       </section>
 
+      {/* ---------- FINAL CTA ---------- */}
+      <section className="container-narrow pb-24">
+        <Reveal>
+          <div className="card text-center">
+            <h2 className="text-3xl font-semibold">Save Your Free Seat</h2>
+            <p className="mx-auto mt-3 max-w-md text-cream/70">
+              Seats are limited and this masterclass is live. Register now and get your
+              instant confirmation with the Zoom link.
+            </p>
+            <a href="#register" className="btn-cta mt-6">
+              Yes, Save My Free Seat
+            </a>
+          </div>
+        </Reveal>
+      </section>
+
       {/* ---------- SOCIAL PROOF IMAGES SLIDER (BELOW TESTIMONIALS) ---------- */}
       <section className="container-narrow pb-20">
         <Reveal>
@@ -235,21 +251,7 @@ export default function OptInPage() {
         </Reveal>
       </section>
 
-      {/* ---------- FINAL CTA ---------- */}
-      <section className="container-narrow pb-24">
-        <Reveal>
-          <div className="card text-center">
-            <h2 className="text-3xl font-semibold">Save Your Free Seat</h2>
-            <p className="mx-auto mt-3 max-w-md text-cream/70">
-              Seats are limited and this masterclass is live. Register now and get your
-              instant confirmation with the Zoom link.
-            </p>
-            <a href="#register" className="btn-cta mt-6">
-              Yes, Save My Free Seat
-            </a>
-          </div>
-        </Reveal>
-      </section>
+      
     </main>
   );
 }
