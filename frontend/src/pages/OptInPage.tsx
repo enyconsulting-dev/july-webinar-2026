@@ -234,19 +234,22 @@ export default function OptInPage() {
           </div>
         </Reveal>
       </section>
+      
 
-      {/* ---------- SOCIAL PROOF IMAGES SLIDER (BELOW TESTIMONIALS) ---------- */}
+      {/* ---------- SOCIAL PROOF IMAGES SLIDER (BELOW TESTIMONIALS) ----------
       <section className="container-narrow pb-20">
         <Reveal>
           <SocialProofSlider />
         </Reveal>
-      </section>
+      </section> */}
 
       {/* ---------- TRUST ---------- */}
       <section className="container-tight pb-20">
         <Reveal>
           {/* Social Proof Images Slider (Above Trust Bar) */}
           <SocialProofSlider />
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '80px' }}>
+</div>
           <TrustBar />
         </Reveal>
       </section>
