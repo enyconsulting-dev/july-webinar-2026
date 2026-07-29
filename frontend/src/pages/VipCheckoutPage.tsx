@@ -7,6 +7,7 @@ import ResponsiveVideo from "../components/ResponsiveVideo";
 import { createOrder } from "../api";
 import { config } from "../config";
 import { useCurrency } from "../context/CurrencyContext";
+import SocialProofSlider from "../components/SocialProofSlider";
 
 export default function VipCheckoutPage() {
   const email = sessionStorage.getItem("lead_email") ?? "";
@@ -70,6 +71,15 @@ export default function VipCheckoutPage() {
           />
         </Reveal>
       </div>
+
+       {/* ---------- SOCIAL PROOF IMAGES SLIDER (BELOW TESTIMONIALS) ---------- */}
+            <section className="container-narrow pb-20">
+              <Reveal>
+                <SocialProofSlider />
+              </Reveal>
+            </section>
     </main>
+
+
   );
 }
