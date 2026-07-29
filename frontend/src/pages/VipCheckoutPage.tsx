@@ -70,12 +70,18 @@ export default function VipCheckoutPage() {
             onProceed={handleProceed}
           />
         </Reveal>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '100px' }}>
       </div>
+      </div>
+      
 
-       {/* ---------- SOCIAL PROOF IMAGES SLIDER (BELOW TESTIMONIALS) ---------- */}
-            <section className="container-narrow pb-20">
+      <section className="container-tight pb-20">
               <Reveal>
+                {/* Social Proof Images Slider (Above Trust Bar) */}
                 <SocialProofSlider />
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '80px' }}>
+      </div>
+               
               </Reveal>
             </section>
     </main>

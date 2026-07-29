@@ -8,6 +8,7 @@ import { createOrder } from "../api";
 import { config } from "../config";
 import { useCurrency } from "../context/CurrencyContext";
 import SocialProofSlider from "../components/SocialProofSlider";
+import TrustBar from "../components/TrustBar";
 
 export default function PlatinumCheckoutPage() {
   const email = sessionStorage.getItem("lead_email") ?? "";
@@ -85,15 +86,30 @@ export default function PlatinumCheckoutPage() {
           </div>
         </Reveal>
 
-        {/* ---------- SOCIAL PROOF IMAGES SLIDER (BELOW TESTIMONIALS) ---------- */}
+        
+
+        {/* ---------- SOCIAL PROOF IMAGES SLIDER (BELOW TESTIMONIALS) ----------
               <section className="container-narrow pb-20">
                 <Reveal>
                   <SocialProofSlider />
                 </Reveal>
               </section>
-        
+         */}
+
+         
       
       </div>
+
+      {/* ---------- TRUST ---------- */}
+            <section className="container-tight pb-20">
+              <Reveal>
+                {/* Social Proof Images Slider (Above Trust Bar) */}
+                <SocialProofSlider />
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '80px' }}>
+      </div>
+               
+              </Reveal>
+            </section>
     </main>
   );
 }
