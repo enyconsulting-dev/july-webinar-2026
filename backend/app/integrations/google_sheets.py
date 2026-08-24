@@ -74,7 +74,7 @@ async def append_lead_to_sheet(
                 range="Sheet1!A:I",
                 valueInputOption="USER_ENTERED",
                 insertDataOption="INSERT_ROWS",
-                body={"values": [[timestamp, first_name, last_name, email, phone, city, country, industry, job_title]]},
+                body={"values": [[first_name, last_name, email, phone, city, country, industry, job_title, timestamp]]},
             ).execute()
             return True
         except Exception:

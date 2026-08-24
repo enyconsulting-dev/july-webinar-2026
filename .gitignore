@@ -12,3 +12,5 @@ backend/tests/
 mappingPrabbly-zoom.md
 GHL_setup.md
 GoogleSheet.md
+config.bat
+node_modules
