@@ -55,7 +55,7 @@ class Settings(BaseSettings):
 
     # --- Event / Zoom ---
     zoom_registration_url: str = (
-        "https://us06web.zoom.us/meeting/register/kZIx9YQbSBi-GbYHGHCBrg"
+        "https://zoom.us/meeting/register/CTLnxAFzR2G6EssgNxNyDA"
     )
     pabbly_webhook_url: str = ""
     # Google Sheets: base64-encoded service account JSON and target sheet id
