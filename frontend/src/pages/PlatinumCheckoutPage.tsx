@@ -8,7 +8,7 @@ import { createOrder } from "../api";
 import { config } from "../config";
 import { useCurrency } from "../context/CurrencyContext";
 import SocialProofSlider from "../components/SocialProofSlider";
-import TrustBar from "../components/TrustBar";
+// import TrustBar from "../components/TrustBar";
 
 export default function PlatinumCheckoutPage() {
   const email = sessionStorage.getItem("lead_email") ?? "";
